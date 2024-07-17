@@ -51,7 +51,7 @@ test.beforeEach(async ({ page }) => {
     await page.getByText("Test Hotel").first().click();
     await page.getByRole("button", { name: "Book now" }).click();
   
-    await expect(page.getByText("Total Cost: £200.00")).toBeVisible();
+    await expect(page.getByText("Total Cost: £300.00")).toBeVisible();
   
     const stripeFrame = page.frameLocator("iframe").first();
     await stripeFrame
@@ -63,4 +63,7 @@ test.beforeEach(async ({ page }) => {
   
     await page.getByRole("button", { name: "Confirm Booking" }).click();
     await expect(page.getByText("Booking Saved!")).toBeVisible();
+
+    await page.getByRole("link", { name: "My Bookings" }).click();
+    await expect(page.getByText("Test Hotel").first()).toBeVisible();
   });
