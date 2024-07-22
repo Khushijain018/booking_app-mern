@@ -1,0 +1,14 @@
+on: [push]
+jobs:
+  blog-generation-job:
+    runs-on: ubuntu-latest
+    name: Automatic hashnode blog generation
+    steps:
+      - name: HashBlog
+        id: hashblog
+        uses: srajansohani/blog-the-change@v1.1
+        with:
+          blog-domain: "khushi0018.hashnode.dev"
+        env:
+          HASHNODE_ACCESS_TOKEN: ${{ secrets.HASHNODE_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}

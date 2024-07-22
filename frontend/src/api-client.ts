@@ -5,6 +5,8 @@ import {UserType,PaymentIntentResponse} from "../../Backend/src/shared/types";
 import { BookingFormData } from "./forms/BookingForm/BookingForm";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "" ;
+ 
+ //const API_BASE_URL = "https://hoppin-stay-backend-2.onrender.com" ||"" ;
 
 export const fetchCurrentUser = async (): Promise<UserType> => {
   const response = await fetch(`${API_BASE_URL}/api/users/me`, {
@@ -33,9 +35,6 @@ export const register = async (formData: RegisterFormData) => {
     }
   };
 
-
-
-
   export const signIn = async (formData: SignInFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: "POST",
@@ -45,27 +44,30 @@ export const register = async (formData: RegisterFormData) => {
       },
       body: JSON.stringify(formData),
     });
-  
-    const body = await  response.json();
+     
+    const body = await response.json();
+    console.log(body);
     if (!response.ok) {
       throw new Error(body.message);
     }
+    
     return body;
   };
+  
 
-
-export const validateToken=async()=>{
+  export const validateToken=async()=>{
     const response=await fetch(`${API_BASE_URL}/api/auth/validate-token`,{
-        credentials: 'include',
-    })
+     credentials: 'include',
+    });
     if(!response.ok){
         throw new Error("Token Invalid");
     }
     return response.json();
   };
+  
   export const signOut = async () => {
     const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
-      credentials: "include",
+     credentials: "include",
       method: "POST",
     });
   
@@ -77,7 +79,7 @@ export const validateToken=async()=>{
   export const addMyHotel = async (hotelFormData: FormData) => {
     const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
       method: "POST",
-      credentials: "include",
+     credentials: "include",
       body: hotelFormData,
     });
   
@@ -89,7 +91,7 @@ export const validateToken=async()=>{
   };
   export const fetchMyHotels = async (): Promise<HotelType[]> => {
     const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
-      credentials: "include",
+    credentials: "include",
     });
   
     if (!response.ok) {
@@ -101,7 +103,7 @@ export const validateToken=async()=>{
   
   export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
     const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
-      credentials: "include",
+    credentials: "include",
     });
   
     if (!response.ok) {
@@ -233,7 +235,7 @@ export const createRoomBooking = async (formData: BookingFormData) => {
 };
 export const fetchMyBookings = async (): Promise<HotelType[]> => {
   const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
-    credentials: "include",
+   credentials: "include",
   });
 
   if (!response.ok) {
